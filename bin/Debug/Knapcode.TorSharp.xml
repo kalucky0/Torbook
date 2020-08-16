@@ -1,0 +1,518 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Knapcode.TorSharp</name>
+    </assembly>
+    <members>
+        <member name="F:Knapcode.TorSharp.ToolDownloadStrategy.First">
+            <summary>
+            Download the first version that comes back and cancel the other requests.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.ToolDownloadStrategy.Latest">
+            <summary>
+            Download the latest version. Requests that fail are ignored but at least one request must succeed.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.ToolDownloadStrategy.All">
+            <summary>
+            All requests to find a tool version must succeed. This is really only useful for testing.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.ToolRunnerType">
+            <summary>
+            The types of tools runner.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.ToolRunnerType.VirtualDesktop">
+            <summary>
+            A tool runner that uses the Windows API to create a virtual desktop and process jobs
+            to start a tool and keep it hidden. The associated implementation of
+            <see cref="T:Knapcode.TorSharp.Tools.IToolRunner"/> is <see cref="T:Knapcode.TorSharp.Tools.VirtualDesktopToolRunner"/>.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.ToolRunnerType.Simple">
+            <summary>
+            A tool runner that uses basic processes to start and stop jobs. The associated
+            implementation of <see cref="T:Knapcode.TorSharp.Tools.IToolRunner"/> is <see cref="T:Knapcode.TorSharp.Tools.SimpleToolRunner"/>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.DownloadableFile.Version">
+            <summary>
+            The version of the tool to download.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.DownloadableFile.Url">
+            <summary>
+            The absolute URL of the tool download.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.DownloadableFile.Format">
+            <summary>
+            The format of the downloadable file.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.Tools.IConfigurationDictionary">
+            <summary>
+            An interface for building tool configuration.
+            </summary>
+        </member>
+        <member name="M:Knapcode.TorSharp.Tools.IConfigurationDictionary.GetDictionary(Knapcode.TorSharp.Tools.Tool,Knapcode.TorSharp.TorSharpSettings)">
+            <summary>
+            Configure a tool given the provided settings.
+            </summary>
+            <param name="tool">The tool that is being configured.</param>
+            <param name="settings">The settings.</param>
+            <returns>The configuration key and values to be written to a file.</returns>
+        </member>
+        <member name="T:Knapcode.TorSharp.Tools.Tool">
+            <summary>
+            An extracted instance of a tool.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.Tool.Settings">
+            <summary>
+            The generic settings of the tool, agnostic of this specific extracted instance.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.Tool.ZipPath">
+            <summary>
+            The path to the compressed archive that was used to initialize the tool.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.Tool.Version">
+            <summary>
+            The version of the tool.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.Tool.DirectoryPath">
+            <summary>
+            The base extracted directory of the tool.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.Tool.ExecutablePath">
+            <summary>
+            The full path to the tool's main executable.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.Tool.WorkingDirectory">
+            <summary>
+            The full path to the tool's working directory.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.Tool.ConfigurationPath">
+            <summary>
+            The full path to the tool's configuration file.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.Tools.ToolSettings">
+            <summary>
+            Information on how a tool is laid out on disk and how it should be interacted with by TorSharp.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.Name">
+            <summary>
+            The name of the tool for messages.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.Prefix">
+            <summary>
+            The prefix of the compressed tool's file name. For example, "tor-linux32-".
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.ExecutablePath">
+            <summary>
+            The relative path inside the extracted directory to the tool's main exectuable.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.WorkingDirectory">
+            <summary>
+            The relative path inside the extracted directory to use as the tool's working directory.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.ConfigurationPath">
+            <summary>
+            The relative path inside the extracted directory to the tool's configuration file.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.GetArguments">
+            <summary>
+            The delegate to get the arguments for a tool, given a tool instance.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.GetEnvironmentVariables">
+            <summary>
+            The delegate to get the additional environment variables for a tool, given a tool instance.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.ZippedToolFormat">
+            <summary>
+            The format of the compress tool archive file.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.GetEntryPath">
+            <summary>
+            A delegate to determine whether an entry (file) in the tool archive should be extracted. The input string
+            is the entry name inside the archive. The returned string is the relative path inside the extracted
+            directory to use for the entry. If null is returned, the entry is skipped.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.Tools.ToolSettings.ExecutablePathOverride">
+            <summary>
+            A verbatim path used to point to the tool executable. This can be an absolute path, a path relative, or an
+            executable name present in the PATH variable (e.g. installed to the local machine).
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.Tools.ZippedToolFormat">
+            <summary>
+            The format of a zipped tool, i.e. how it is compressed.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.Tools.ZippedToolFormat.Zip">
+            <summary>
+            A ZIP file.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.Tools.ZippedToolFormat.Deb">
+            <summary>
+            A Debian package.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.Tools.ZippedToolFormat.TarXz">
+            <summary>
+            A tarball file compressed using the XZ compression format.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.ToolUpdate.HasUpdate">
+            <summary>
+            Whether or not there is an update available for this tool.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.ToolUpdate.LocalVersion">
+            <summary>
+            The latest local version. Null if no local version exists as indicated by <see cref="P:Knapcode.TorSharp.ToolUpdate.Status"/> with a value
+            of <see cref="F:Knapcode.TorSharp.ToolUpdateStatus.NoLocalVersion"/>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.ToolUpdate.DestinationPath">
+            <summary>
+            The path that <see cref="P:Knapcode.TorSharp.ToolUpdate.LatestDownload"/> would be downloaded to by <see cref="T:Knapcode.TorSharp.TorSharpToolFetcher"/>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.ToolUpdate.LatestDownload">
+            <summary>
+            Information about the latest downloadable tool.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.ToolUpdates">
+            <summary>
+            Update information for the tools needed to run <see cref="T:Knapcode.TorSharp.TorSharpProxy"/>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.ToolUpdates.HasUpdate">
+            <summary>
+            Whether or not there is an update available for one or more tools.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.ToolUpdates.Privoxy">
+            <summary>
+            Update information for Privoxy.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.ToolUpdates.Tor">
+            <summary>
+            Update information for Tor.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.ToolUpdateStatus">
+            <summary>
+            The status of the tool update.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.ToolUpdateStatus.NoUpdateAvailable">
+            <summary>
+            No update is available meaning the latest local tool is the same version as the version available remotely.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.ToolUpdateStatus.NoLocalVersion">
+            <summary>
+            There is no version available locally. In this case, <see cref="T:Knapcode.TorSharp.TorSharpProxy"/> will fail to run if no
+            tool is downloaded and put into the <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/>.
+            </summary>
+        </member>
+        <member name="F:Knapcode.TorSharp.ToolUpdateStatus.NewerVersionAvailable">
+            <summary>
+            A version is available locally but a newer version is available remotely. In this case,
+            <see cref="T:Knapcode.TorSharp.TorSharpProxy"/> will run using this existing local version if no newer version is downloaded.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.ToolUtility">
+            <summary>
+            A support utility for reading the directory containing the tools.
+            </summary>
+        </member>
+        <member name="M:Knapcode.TorSharp.ToolUtility.GetLatestToolOrNull(Knapcode.TorSharp.TorSharpSettings,Knapcode.TorSharp.Tools.ToolSettings)">
+            <summary>
+            Read the <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/> and find the latest tool matching the criteria
+            in the provided <paramref name="toolSettings"/>. If none is found return null.
+            </summary>
+            /// <param name="settings">The settings for TorSharp.</param>
+            <param name="toolSettings">The settings for the tool.</param>
+            <returns>The tool, or null if none was found.</returns>
+        </member>
+        <member name="T:Knapcode.TorSharp.TorSharpArchitecture">
+            <summary>
+            CPU architectures that TorSharp can run on.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.TorSharpOSPlatform">
+            <summary>
+            Operating systems that TorSharp can run on.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpPrivoxySettings.Port">
+            <summary>
+            The port that Privoxy listens to. This is the port of the HTTP proxy. This defaults to 18118.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpPrivoxySettings.ListenAddress">
+            <summary>
+            The address that Privoxy listens to. This defaults to 127.0.0.1.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpPrivoxySettings.ExecutablePathOverride">
+            <summary>
+            Override that path to the Privoxy executable. The simplest usage is to ensure "privoxy" is in the PATH
+            environment variable and setting this property to "privoxy". This setting is intended for providing an
+            executable already installed to the host machine rather than the one extracted from the tools archive.
+            Note that this does not disable the tool fetching or extraction process since the base configuration and
+            other peripheral files still are extractied from the <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/>.
+            This is helpful when the tool fetched via the <see cref="T:Knapcode.TorSharp.TorSharpToolFetcher"/> is not compatible with the
+            host machine. 
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.TorSharpProxy">
+            <summary>
+            The main proxy controller implementation. This class handles extracting the tools (Privoxy and Tor),
+            configuring them, starting them, and stopping them.
+            </summary>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpProxy.#ctor(Knapcode.TorSharp.TorSharpSettings)">
+            <summary>
+            Initializes an instance of the proxy controller.
+            </summary>
+            <param name="settings">The settings to dictate the proxy's behavior.</param>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpProxy.ConfigureAndStartAsync">
+            <summary>
+            Configure the tools and start them.
+            </summary>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpProxy.GetNewIdentityAsync">
+            <summary>
+            Tell Tor to clean the circuit and get a new identity.
+            </summary>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpProxy.GetControlClientAsync">
+            <summary>
+            Returns a connected and authenticated a Tor control client for the running Tor process. The caller is
+            responsible for disposing of the returned control client.
+            </summary>
+            <returns>The Tor control client that is already connected and authenticated.</returns>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpProxy.Stop">
+            <summary>
+            Stop the tools so that the proxy is no longer listening on the configured port.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.TorSharpSettings">
+            <summary>
+            Settings for how TorSharp behaves.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.ReloadTools">
+            <summary>
+            If true, the tools (Tor and Privoxy) will be re-downloaded by <see cref="T:Knapcode.TorSharp.TorSharpToolFetcher"/> even if the
+            latest version is already downloaded and will be re-extracted by <see cref="T:Knapcode.TorSharp.TorSharpProxy"/> even if the
+            latest version is already extracted. This is disabled by default.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.EnableSecurityProtocolsForFetcher">
+            <summary>
+            Enable all SSL/TLS protocol on <see cref="P:System.Net.ServicePointManager.SecurityProtocol"/> so that
+            requests to fetch the tools don't fail due to protocol mismatches. This is enabled by default.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.ToolRunnerType">
+            <summary>
+            The way in which tools should be run. The default is <see cref="F:Knapcode.TorSharp.ToolRunnerType.VirtualDesktop"/> on Windows
+            so that the Privoxy and Tor windows are not visible and <see cref="F:Knapcode.TorSharp.ToolRunnerType.Simple"/> for other
+            operating systems.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory">
+            <summary>
+            The directory to download the zipped tools. This defaults to <c>%TEMP%\Knapcode.TorSharp\ZippedTools</c>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.ExtractedToolsDirectory">
+            <summary>
+            The directory to extract the tools to and run them from.  This defaults to
+            <c>%TEMP%\Knapcode.TorSharp\ExtractedTools</c>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.UseExistingTools">
+            <summary>
+            Instead of downloading the latest version of the tools in <see cref="T:Knapcode.TorSharp.TorSharpToolFetcher"/>, use any
+            existing tools already downloaded to <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.ToolDownloadStrategy">
+            <summary>
+            What strategy to use when fetching the latest version of a tool. This behavior matters when there are
+            multiple URLs or feeds that a checked for a single tool.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.OSPlatform">
+            <summary>
+            The operating system that TorSharp should assume it is running on. This defaults to
+            <see cref="F:Knapcode.TorSharp.TorSharpOSPlatform.Windows"/> on .NET Framework and is automatically detected on .NET Core.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.Architecture">
+            <summary>
+            The CPU architecture that TorSharp should assume it is runnong on. This is automatically detected using the
+            architecture of the process.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.WaitForConnect">
+            <summary>
+            How long to wait for each tool to accept connections while starting up. This allows for the tools to start
+            up before completing the initialization process. Defaults to 5 seconds. This can be completely disabled by
+            setting this property to <see cref="F:System.TimeSpan.Zero"/>.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.PrivoxySettings">
+            <summary>
+            Settings specific to Privoxy.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpSettings.TorSettings">
+            <summary>
+            Settings specific to Tor.
+            </summary>
+        </member>
+        <member name="T:Knapcode.TorSharp.TorSharpToolFetcher">
+            <summary>
+            Fetch the latest version of the tools from the internet.
+            </summary>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpToolFetcher.CheckForUpdatesAsync">
+            <summary>
+            Checks for updates of the tools and returns what is found. Inspect the
+            <see cref="P:Knapcode.TorSharp.ToolUpdates.HasUpdate"/> property to determine whether updates are available. This is
+            determined by checking the the latest versions are already downloads to the
+            <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/>.
+            </summary>
+            <returns>Information about whether there are tool updates.</returns>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpToolFetcher.FetchAsync(Knapcode.TorSharp.ToolUpdates)">
+            <summary>
+            Downloads the latest version of the tools to the configured
+            <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/> given the tool updates already discoved. This should
+            be called after getting the result of <see cref="M:Knapcode.TorSharp.TorSharpToolFetcher.CheckForUpdatesAsync"/>.
+            </summary>
+            <param name="updates">The updates to download.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpToolFetcher.FetchAsync">
+            <summary>
+            Downloads the latest version of the tools to the configured
+            <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/>. This method always tries to download the latest
+            version of the tools unless <see cref="P:Knapcode.TorSharp.TorSharpSettings.UseExistingTools"/> is set to true.
+            </summary>
+            <returns>A task.</returns>
+        </member>
+        <member name="T:Knapcode.TorSharp.TorSharpTorSettings">
+            <summary>
+            Settings specific to Tor.
+            </summary>
+        </member>
+        <member name="M:Knapcode.TorSharp.TorSharpTorSettings.#ctor">
+            <summary>
+            Initializes an instance of the TorSharp settings with default ports set.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.SocksPort">
+            <summary>
+            The port that Tor listens to for SOCKS. This is the port that Privoxy tunnels to. This defaults to 19050.
+            See https://www.torproject.org/docs/tor-manual.html.en#SocksPort for details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.ControlPort">
+            <summary>
+            The port that Tor listens to for control and administrative commands. This defaults to 19051.
+            See https://www.torproject.org/docs/tor-manual.html.en#ControlPort for details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.ExitNodes">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#ExitNodes for details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.StrictNodes">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#StrictNodes for details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.ControlPassword">
+            <summary>
+            The unhashed version of <see cref="P:Knapcode.TorSharp.TorSharpTorSettings.HashedControlPassword"/>. TorSharp will hash it on your behalf if set and
+            <see cref="P:Knapcode.TorSharp.TorSharpTorSettings.HashedControlPassword"/> is not set.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.HashedControlPassword">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#HashedControlPassword for more details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.DataDirectory">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#DataDirectory for more details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.HttpsProxyHost">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#HTTPSProxy for more details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.HttpsProxyPort">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#HTTPSProxy for more details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.HttpsProxyUsername">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#HTTPSProxyAuthenticator for more details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.HttpsProxyPassword">
+            <summary>
+            See https://www.torproject.org/docs/tor-manual.html.en#HTTPSProxyAuthenticator for more details.
+            </summary>
+        </member>
+        <member name="P:Knapcode.TorSharp.TorSharpTorSettings.ExecutablePathOverride">
+            <summary>
+            Override that path to the Tor executable. The simplest usage is to ensure "tor" is in the PATH
+            environment variable and setting this property to "tor". This setting is intended for providing an
+            executable already installed to the host machine rather than the one extracted from the tools archive.
+            Note that this does not disable the tool fetching or extraction process since the base configuration and
+            other peripheral files still are extractied from the <see cref="P:Knapcode.TorSharp.TorSharpSettings.ZippedToolsDirectory"/>.
+            This is helpful when the tool fetched via the <see cref="T:Knapcode.TorSharp.TorSharpToolFetcher"/> is not compatible with the
+            host machine. 
+            </summary>
+        </member>
+    </members>
+</doc>

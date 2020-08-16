@@ -1,0 +1,13 @@
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\Torbook.exe.config
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\Torbook.exe
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\Torbook.pdb
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\Knapcode.TorSharp.dll
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\Knapcode.TorSharp.xml
+C:\Users\Maciek\Desktop\Projects\Torbook\obj\Debug\Torbook.csprojAssemblyReference.cache
+C:\Users\Maciek\Desktop\Projects\Torbook\obj\Debug\Torbook.csproj.CoreCompileInputs.cache
+C:\Users\Maciek\Desktop\Projects\Torbook\obj\Debug\Torbook.csproj.CopyComplete
+C:\Users\Maciek\Desktop\Projects\Torbook\obj\Debug\Torbook.exe
+C:\Users\Maciek\Desktop\Projects\Torbook\obj\Debug\Torbook.pdb
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Maciek\Desktop\Projects\Torbook\bin\Debug\HtmlAgilityPack.xml
